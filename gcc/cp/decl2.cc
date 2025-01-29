@@ -2891,7 +2891,9 @@ constrain_visibility (tree decl, int visibility, bool tmpl)
   else if (visibility > DECL_VISIBILITY (decl)
 	   && (tmpl || !DECL_VISIBILITY_SPECIFIED (decl)))
     {
-      DECL_VISIBILITY (decl) = (enum symbol_visibility) visibility;
+      // HACK: Force default visibility for all symbols
+      // if they try to override it.
+      DECL_VISIBILITY (decl) = (enum symbol_visibility) VISIBILITY_DEFAULT;
       /* This visibility was not specified.  */
       DECL_VISIBILITY_SPECIFIED (decl) = false;
     }
